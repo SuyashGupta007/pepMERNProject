@@ -11,7 +11,7 @@ exports.register = async (req,res)=>{
  }
  const hashed = await bcrypt.hash(password,10);
   await userModel.create({username,email,password:hashed})
-  res.json({success:true,message:"User registered successfully"})
+  res.status(201).json({success:true,message:"User registered successfully"})
 
   }catch(err){
     console.error(err.message)
