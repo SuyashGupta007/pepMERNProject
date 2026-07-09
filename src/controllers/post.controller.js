@@ -38,3 +38,31 @@ exports.createPost = async(req , res)=>{
         res.status(500).json({message:"Error creating post"})
     }
 }
+
+exports.getAllPosts = async(req,res)=>{
+  try{
+    const posts = await postModel
+    .find()
+    .populate("owner","username")
+    .sort({createdAt:-1});
+    res.status(200).json({posts})
+
+  }catch(err){
+    console.error(err.message)
+    res.status(500).json({message:"Error fetching posts"})
+  }
+}
+
+
+exports.getUserPosts = async(req,res)=>{
+ try{
+    const posts = await userModel
+    .findById(req.userId)
+    .populate("posts")
+    res.status(200).json({posts})
+
+  }catch(err){
+    console.error(err.message)
+    res.status(500).json({message:"Error fetching posts"})
+  }
+}

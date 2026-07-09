@@ -25,5 +25,11 @@ router.post(
     postController.createPost,
 )
 
+
+router.get("/get-posts",postController.getAllPosts);
+
+router.get("/user-posts",authMiddleware,postController.getUserPosts
+)
+
 // Export router instance containing mounted post routes for use in principal application
 module.exports = router;
